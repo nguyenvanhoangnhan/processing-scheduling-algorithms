@@ -17,7 +17,7 @@ let avgTurnArrowTime = 0;
 let avgWaitingTime = 0;
 
 
-function FirstComeFirstServe() {
+function firstComeFirstServe() {
    for (let i = 0; i < numberOfProcessing; i++) {
       if(meanTime <= arrivalTime[i]) {
          meanTime - arrivalTime[i];
@@ -48,7 +48,7 @@ function printResult() {
 
 (main = () => {
    console.log("First Come First Serve Scheduling Algorithm");
-   FirstComeFirstServe();
+   firstComeFirstServe();
    calcAvgTime();
    printResult();
 })();
