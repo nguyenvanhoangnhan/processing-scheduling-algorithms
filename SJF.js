@@ -46,7 +46,7 @@ function shortestJobFirst() {
    }
 
    while(!isAllDone()) {
-      let index = indexOfShortestAvailableJob(meanTime);
+      let index = indexOfShortestAvailableJob();
       waitingTime[index] = meanTime - arrivalTime[index];
       meanTime += serviceTime[index];
       turnArrowTime[index] = waitingTime[index] + serviceTime[index];
