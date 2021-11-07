@@ -1,5 +1,5 @@
 {
-   "numberOfProcessing": 4,
-   "arrivalTime": [0,2,4,5],
-   "serviceTime": [9,4,1,4]
+   "numberOfProcess": 5,
+   "arrivalTime": [0,2,4,6,8],
+   "serviceTime": [3,6,4,5,2]
 }

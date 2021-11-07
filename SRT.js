@@ -1,12 +1,12 @@
 /*
  * Run this app with NodeJS
  * This file and input.json must be in the same folder
- * The input file contain number of processing, arrival time and service time of each processing. 
+ * The input file contain number of Process, arrival time and service time of each Process. 
  */
 
 var inputData = require("./input.json");
 
-let numberOfProcessing = inputData.numberOfProcessing;
+let numberOfProcess = inputData.numberOfProcess;
 let arrivalTime = inputData.arrivalTime;
 let serviceTime = inputData.serviceTime;
 let waitingTime = [];
@@ -20,7 +20,7 @@ let avgWaitingTime = 0;
 
 function shortestRemainingTime() {
    
-   for (let i = 0; i < numberOfProcessing; i++) {
+   for (let i = 0; i < numberOfProcess; i++) {
       remainingTime[i] = serviceTime[i];
       isDone[i] = 0;
       totalTime += serviceTime[i];
@@ -29,12 +29,12 @@ function shortestRemainingTime() {
    function indexOfShortestRemain(time) {
       let res = -1;
       let min = 2147483647;
-      for (let i = 0; i < numberOfProcessing; i++) {
-         // processing hasn't arrived yet or has done => skip
+      for (let i = 0; i < numberOfProcess; i++) {
+         // Process hasn't arrived yet or has done => skip
          if(arrivalTime[i] > time || isDone[i]) 
             continue;
          
-         // processing is arrived and has't done yet => compare to min
+         // Process is arrived and has't done yet => compare to min
          if(remainingTime[i] < min) {
             min = remainingTime[i];
             res = i;
@@ -56,12 +56,12 @@ function shortestRemainingTime() {
 }
 
 function calcAvgTime() {
-   for (let i = 0; i < numberOfProcessing; i++) {
+   for (let i = 0; i < numberOfProcess; i++) {
       avgTurnArrowTime += turnArrowTime[i];
       avgWaitingTime += waitingTime[i];
    }
-   avgTurnArrowTime /= numberOfProcessing;
-   avgWaitingTime /= numberOfProcessing;
+   avgTurnArrowTime /= numberOfProcess;
+   avgWaitingTime /= numberOfProcess;
 }
 
 function printResult() {

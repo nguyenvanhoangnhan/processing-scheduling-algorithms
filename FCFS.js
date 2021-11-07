@@ -1,12 +1,12 @@
 /*
  * Run this app with NodeJS
  * This file and input.json must be in the same folder
- * The input file contain number of processing, arrival time and service time of each processing. 
+ * The input file contain number of Process, arrival time and service time of each Process. 
  */
 
 var inputData = require("./input.json");
 
-let numberOfProcessing = inputData.numberOfProcessing;
+let numberOfProcess = inputData.numberOfProcess;
 let arrivalTime = inputData.arrivalTime;
 let serviceTime = inputData.serviceTime;
 let waitingTime = [];
@@ -18,10 +18,7 @@ let avgWaitingTime = 0;
 
 
 function firstComeFirstServe() {
-   for (let i = 0; i < numberOfProcessing; i++) {
-      if(meanTime <= arrivalTime[i]) {
-         meanTime - arrivalTime[i];
-      }
+   for (let i = 0; i < numberOfProcess; i++) {
       waitingTime[i] = meanTime - arrivalTime[i];
       meanTime += serviceTime[i];
       turnArrowTime[i] = waitingTime[i] + serviceTime[i];
@@ -30,12 +27,12 @@ function firstComeFirstServe() {
 }
 
 function calcAvgTime() {
-   for (let i = 0; i < numberOfProcessing; i++) {
+   for (let i = 0; i < numberOfProcess; i++) {
       avgTurnArrowTime += turnArrowTime[i];
       avgWaitingTime += waitingTime[i];
    }
-   avgTurnArrowTime /= numberOfProcessing;
-   avgWaitingTime /= numberOfProcessing;
+   avgTurnArrowTime /= numberOfProcess;
+   avgWaitingTime /= numberOfProcess;
 }
 
 function printResult() {

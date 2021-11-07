@@ -1,26 +1,26 @@
 /*
  * Run this app with NodeJS
  * This file and input.json must be in the same folder
- * The input file contain number of processing, arrival time and service time of each processing. 
+ * The input file contain number of Process, arrival time and service time of each Process. 
  */
 
 var inputData = require("./input.json");
 
-let numberOfProcessing = inputData.numberOfProcessing;
+let numberOfProcess = inputData.numberOfProcess;
 let arrivalTime = inputData.arrivalTime;
 let serviceTime = inputData.serviceTime;
 let waitingTime = [];
 let turnArrowTime = [];
 let isDone = [];
+let serveOrder = [];
 let meanTime = 0;
 let totalTime = 0;
 let avgTurnArrowTime = 0;
 let avgWaitingTime = 0;
 
-
 function shortestJobFirst() {
    
-   for (let i = 0; i < numberOfProcessing; i++) {
+   for (let i = 0; i < numberOfProcess; i++) {
       isDone[i] = 0;
    }
 
@@ -31,12 +31,12 @@ function shortestJobFirst() {
    function indexOfShortestAvailableJob() {
       let res = -1;
       let min = 2147483647;
-      for (let i = 0; i < numberOfProcessing; i++) {
-         // processing has't arrived yet or has done => skip
+      for (let i = 0; i < numberOfProcess; i++) {
+         // Process has't arrived yet or has done => skip
          if(meanTime < arrivalTime[i] || isDone[i]) 
             continue;
          
-         // processing is arrived and has't done yet => compare to min
+         // Process is arrived and has't done yet => compare to min
          if(serviceTime[i] < min) {
             min = serviceTime[i];
             res = i;
@@ -47,6 +47,7 @@ function shortestJobFirst() {
 
    while(!isAllDone()) {
       let index = indexOfShortestAvailableJob();
+      serveOrder.push(index);
       waitingTime[index] = meanTime - arrivalTime[index];
       meanTime += serviceTime[index];
       turnArrowTime[index] = waitingTime[index] + serviceTime[index];
@@ -56,12 +57,12 @@ function shortestJobFirst() {
 }
 
 function calcAvgTime() {
-   for (let i = 0; i < numberOfProcessing; i++) {
+   for (let i = 0; i < numberOfProcess; i++) {
       avgTurnArrowTime += turnArrowTime[i];
       avgWaitingTime += waitingTime[i];
    }
-   avgTurnArrowTime /= numberOfProcessing;
-   avgWaitingTime /= numberOfProcessing;
+   avgTurnArrowTime /= numberOfProcess;
+   avgWaitingTime /= numberOfProcess;
 }
 
 function printResult() {
@@ -69,6 +70,7 @@ function printResult() {
    console.log("Total time:", totalTime);
    console.log("Avg TurnArrow Time:", avgTurnArrowTime);
    console.log("Avg Waiting Time:", avgWaitingTime);
+   console.log("Serve Order: ",serveOrder.join(" => "));
 }
 
 
